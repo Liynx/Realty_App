@@ -1,0 +1,276 @@
+<html>
+
+<head>
+  <title>Node Realty</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <script>
+    function visibilityToggle() {
+      //console.log("The event is triggerd");
+      var x = document.getElementById("hideDiv");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+
+    function visibilityToggle2() {
+      //console.log("The event is triggerd");
+      var x = document.getElementById("hideDiv2");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+  </script>
+  <style>
+    form {
+      margin-left: 2.5%;
+      display: inline;
+    }
+
+    .button-container form {
+      display: inline;
+    }
+
+
+    #mainTitle {
+      text-align: center;
+      text-decoration: underline;
+      font-weight: bold;
+      border-bottom: 10px;
+    }
+
+    .flex-container {
+      display: flex;
+      justify-content: space-evenly;
+
+    }
+
+    .interior-container {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    h2 {
+      text-decoration: underline;
+    }
+
+    a {
+      float: right;
+    }
+
+    #hideDiv,
+    #hideDiv2 {
+      display: none;
+    }
+
+    div.c-wrapper {
+      width: 60%;
+      /* for example */
+      margin: auto;
+    }
+
+    .carousel-inner>.item>img,
+    .carousel-inner>.item>a>img {
+      width: 40%;
+      height: 400px;
+      /* use this, or not */
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="d-flex flex-column flex-md-row align-items-center p-5 px-md-4 mb-3 border-bottom shadow-sm">
+    <h3 class="my-2 mr-md-auto font-weight-bold">Node FireStore Realty</h3>
+      <nav class="navbar navbar-inverse my-2 my-md-0 mr-md-3 ">
+        <a href="/map"><button type="button" class="btn btn-primary btn-lg" style="padding:10px; margin: 3px;">View Houses On the Map</button></a>
+        <a href="/"><button type="button" class="btn btn-primary btn-lg" style="padding:10px; margin: 3px;">Home</button></a>
+      </nav>
+
+  </div>
+
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="item active">
+        <img src="/images/test1.jpg" alt="Los Angeles">
+      </div>
+
+      <div class="item">
+        <img src="/images/test2.jpg" alt="Chicago">
+      </div>
+
+      <div class="item">
+        <img src="/images/test3.jpg" alt="New York">
+      </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+
+
+
+  <h1 id="mainTitle">Welcome to Node Firestore Realty!</h1>
+  <h2>Houses for Sale:</h2><br>
+
+  <br>
+  <table class='table table-bordered' border='2'>
+    <thead class='thead-dark'>
+      <tr>
+        <th>ID: </th>
+        <th>Address: </th>
+        <th>Price: </th>
+        <th>Size: </th>
+        <th>Location: </th>
+        <th>Photos: </th>
+        <th>Description: </th>
+        <td>Delete: </td>
+      </tr>
+      <% for(var i=0; i<houses.length; i++) {%>
+      <tr>
+        <td><%= houses[i].id %></td>
+        <td><%= houses[i].address %></td>
+        <td><%= houses[i].price %></td>
+        <td><%= houses[i].size %></td>
+        <td><%= houses[i].location.latitude %>, <%= houses[i].location.longitude %></td>
+        <td><img src="/uploads/<%= houses[i].photos %>" height="40" width="40"></td>
+        <td><%= houses[i].description %></td>
+        <td>
+          <form action="/delete" method="POST">
+            <input type="hidden" name="id" value=<%= houses[i].id %>>
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+      <% } %>
+  </table>
+  <div class="flex-container">
+    <button onclick="visibilityToggle()" class="btn btn-primary btn-lg">Add a House</button>
+    <button onclick="visibilityToggle2()" class="btn btn-primary btn-lg">Edit a House</button>
+  </div>
+  <div class="flex-container">
+    <div id="hideDiv">
+      <h2>Add a House!</h2>
+      <form action="/add" method="POST" id="addForm" enctype="multipart/form-data">
+        <div class="interior-container">
+          <div class="form-group">
+            <label for="address">Address: </label><br>
+            <input type="text" placeholder="address" name="address">
+          </div>
+          <div class="form-group">
+            <label for="address">Description: </label><br>
+            <input type="text" placeholder="description" name="description">
+          </div>
+        </div>
+        <div class="interior-container">
+          <div class="form-group">
+            <label for="address">Latitude: </label><br>
+            <input type="double" placeholder="lat" name="lat">
+          </div>
+          <div class="form-group">
+            <label for="address">Longitude: </label><br>
+            <input type="double" placeholder="long" name="long">
+          </div>
+        </div>
+        <div class="interior-container">
+          <div class="form-group">
+            <label for="address">Price: </label><br>
+            <input type="number" placeholder="price" name="price">
+          </div>
+          <div class="form-group">
+            <label for="address">Size: </label><br>
+            <input type="number" placeholder="size" name="size">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="image">Image: </label><br>
+          <input type="file" name="image" accept="image/*">
+        </div>
+
+        <button type="submit" class="btn btn-success">Add</button>
+      </form>
+    </div>
+
+    <div id="hideDiv2">
+      <h2>Fix a House!</h2>
+
+      <form action="/edit" method="POST" id="editHouse">
+        <div class="interior-container">
+          <div class="form-group">
+            <label for="address">ID: </label><br>
+            <input type="text" placeholder="id" name="id">
+          </div>
+          <div class="form-group">
+            <label for="address">Address: </label><br>
+            <input type="text" placeholder="address" name="address">
+          </div>
+        </div>
+        <div class="interior-container">
+          <div class="form-group">
+            <label for="address">Descrption: </label><br>
+            <input type="text" placeholder="description" name="description">
+          </div>
+          <div class="form-group">
+            <label for="address">Latitude: </label><br>
+            <input type="double" placeholder="lat" name="lat">
+          </div>
+        </div>
+        <div class="interior-container">
+          <div class="form-group">
+            <label for="address">Longitude: </label><br>
+            <input type="double" placeholder="long" name="long">
+          </div>
+          <div class="form-group">
+            <label for="address">Price: </label><br>
+            <input type="number" placeholder="price" name="price">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="address">Size: </label><br>
+          <input type="number" placeholder="size" name="size">
+        </div>
+
+        <button type="submit" class="btn btn-success">Update</button>
+      </form>
+
+    </div>
+    <br><br>
+
+  </div>
+
+
+  <!-- <h2>Delete a House!</h2>
+    <form action="/delete" method="POST">
+      <input type="text" placeholder="id" name="id">
+      <button type="submit" class="btn btn-danger">Delete</button>
+    </form> -->
+  <!-- <br>
+  <a href="/map"><button type="button" class="btn btn-primary">View Houses On the Map</button></a> -->
+</body>
+
+</html>

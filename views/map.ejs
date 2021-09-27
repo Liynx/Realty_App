@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Node Realty Map</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <style>
+    /* Set the size of the div element that contains the map */
+    #map {
+      height: 600px;
+      /* The height is 400 pixels */
+      width: 100%;
+      /* The width is the width of the web page */
+    }
+
+    #mainTitle {
+      text-align: center;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="d-flex flex-column flex-md-row align-items-center p-5 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h3 class="my-2 mr-md-auto font-weight-bold">Node FireStore Realty</h3>
+      <nav class="my-2 my-md-0 mr-md-3">
+        <a href="/map"><button type="button" class="btn btn-primary btn-lg">View Houses On the Map</button></a>
+        <a href="/"><button type="button" class="btn btn-primary btn-lg">Home</button></a>
+      </nav>
+
+  </div>
+
+  <h3 id="mainTitle">Node Realty House Map</h3>
+  
+  <!--The div element for the map -->
+  <div id="map"></div>
+  <script>
+    // Initialize and add the map
+    function initMap() {
+      // The location of Uluru
+      var nanaimo = { lat: 49.159700, lng: -123.907750 };
+      // The map, centered at Uluru
+      var map = new google.maps.Map(
+        document.getElementById('map'), { zoom: 13, center: nanaimo });
+      // The marker, positioned at Uluru
+
+        <% for (var i = 0; i < houses.length; i++) {
+        var lat = houses[i].location.latitude;
+        var long = houses[i].location.longitude;
+            %>
+            var myLatlng = new google.maps.LatLng(<%= lat %>, <%= long %> );
+
+        var marker = new google.maps.Marker({ position: myLatlng, title: 'Test House' });
+        marker.setMap(map);
+        <% } %>
+
+    }
+
+  </script>
+  <!--Load the API from the specified URL
+        * The async attribute allows the browser to render the page while the API loads
+        * The key parameter will contain your own API key (which is not needed for this tutorial)
+        * The callback parameter executes the initMap() function
+        -->
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBX13VInJwtxHSPUtmZGjKq4igFQuqVJdY&callback=initMap">
+    </script>
+
+
+</body>
+
+</html>

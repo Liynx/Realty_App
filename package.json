@@ -1,0 +1,23 @@
+{
+  "name": "lab_04_node",
+  "version": "1.0.0",
+  "description": "Itas Lab 4",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.itas.ca/liam.hyatt/itas255_f19_liam.hyatt.git"
+  },
+  "author": "Liam H",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.6",
+    "firebase-admin": "^8.8.0",
+    "geopoint": "^1.0.1"
+  }
+}
